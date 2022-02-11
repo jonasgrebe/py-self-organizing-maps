@@ -7,7 +7,7 @@
 A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete
 neighborhood-based topology to a data space. This topology is implicitly given as a neighborhood graph. The SOM method assigns to each node of this graph a feature weight
 vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the
-distribution of samples in the dataset, providing a discrete map over the manifold of the data. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
+distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
 
 
 <img src="imgs/nodes_2_random.gif" width=250><img src="imgs/nodes_2_inter.gif" width=250><img src="imgs/nodes_2_trained.gif" width=250>
