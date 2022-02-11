@@ -4,7 +4,7 @@
 
 
 ### Simple implementation of self-organizing maps (SOMs)
-A SOM is an unsupervised method for learning a mapping from the source space (dataset) to a discrete
+A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from the source space (dataset) to a discrete
 neighborhood-based topology. This topology is implicitly given as a neighborhood graph. The SOM method assigns to each node of this graph a feature weight
 vector corresponding to a vector/position in the source space. Over the course of iterations, the node weights of this topology are learned to cover the
 distribution of samples in the dataset, providing a discrete map over the manifold of the data.
