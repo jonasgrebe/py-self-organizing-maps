@@ -37,7 +37,7 @@ X = np.random.randint(0, 255, (N, 3)) # shape = (number_of_samples, feature_dim)
 # create the SOM and fit it to the color vectors
 topo = GridTopology(height=8, width=8, depth=8, d=2) # d is either 1 or 2 or 3
 som = SelfOrganizingMap(topology=topo)
-s.fit(X)
+som.fit(X)
 
 # plot the learned map, the nodes in the data space and the node differences
 som.plot_map()
