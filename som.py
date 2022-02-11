@@ -197,7 +197,7 @@ class SelfOrganizingMap:
 
         plt.savefig(filename + ".png", dpi=400)
 
-    def plot_differences_map(self, axis=None, title="Learned Map", filename="map"):
+    def plot_differences_map(self, axis=None, title="Differences Map", filename="map"):
         diffs = np.zeros_like(self.node_weights)
 
         for node_idx in range(len(self.topology)):
