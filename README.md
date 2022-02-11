@@ -1,2 +1,0 @@
-# py-self-organizing-maps
- 
