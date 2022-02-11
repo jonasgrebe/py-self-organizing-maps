@@ -45,11 +45,11 @@ som.plot_nodes(filename = f"nodes")
 som.plot_differences_map(filename = f"differences")
 
 ```
-<img src="imgs/map_1_random.png" width=190><img src="imgs/nodes_1_random.gif" width=190><img src="imgs/map_1_trained.png" width=190><img src="imgs/nodes_1_trained.gif" width=190><img src="imgs/differences_1_trained.png" width=190>
+<img src="imgs/map_1_random.png" width=180><img src="imgs/nodes_1_random.gif" width=180><img src="imgs/map_1_trained.png" width=190><img src="imgs/nodes_1_trained.gif" width=180><img src="imgs/differences_1_trained.png" width=180>
 
-<img src="imgs/map_2_random.png" width=190><img src="imgs/nodes_2_random.gif" width=190><img src="imgs/map_2_trained.png" width=190><img src="imgs/nodes_2_trained.gif" width=190><img src="imgs/differences_2_trained.png" width=190>
+<img src="imgs/map_2_random.png" width=180><img src="imgs/nodes_2_random.gif" width=180><img src="imgs/map_2_trained.png" width=190><img src="imgs/nodes_2_trained.gif" width=180><img src="imgs/differences_2_trained.png" width=180>
 
-<img src="imgs/map_3_random.gif" width=190><img src="imgs/nodes_3_random.gif" width=190><img src="imgs/map_3_trained.gif" width=190><img src="imgs/nodes_3_trained.gif" width=190><img src="imgs/differences_3_trained.gif" width=190>
+<img src="imgs/map_3_random.gif" width=180><img src="imgs/nodes_3_random.gif" width=180><img src="imgs/map_3_trained.gif" width=190><img src="imgs/nodes_3_trained.gif" width=180><img src="imgs/differences_3_trained.gif" width=180>
 
 ### TODOS
 - [x] Initial Commit
