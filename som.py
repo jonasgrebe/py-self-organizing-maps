@@ -193,7 +193,25 @@ class SelfOrganizingMap:
 
         if self.topology.d == 3:
             angles = np.linspace(0, 360, 21)[:-1]
-            rotanimate(axis, angles, filename + ".gif",delay=0.5, width=5, height=5)
+            rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
+
+        plt.savefig(filename + ".png", dpi=400)
+
+    def plot_differences_map(self, axis=None, title="Learned Map", filename="map"):
+        diffs = np.zeros_like(self.node_weights)
+
+        for node_idx in range(len(self.topology)):
+            neighbor_idxs, _ = self.topology.get_neighbors_of_node(node_idx, radius=2)
+            diffs[node_idx] = np.abs(self.node_weights[neighbor_idxs] - self.node_weights[node_idx]).mean()
+
+        diffs /= diffs.max()
+
+        axis = self.topology.plot_map(diffs, axis, title)
+        plt.tight_layout()
+
+        if self.topology.d == 3:
+            angles = np.linspace(0, 360, 21)[:-1]
+            rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
 
         plt.savefig(filename + ".png", dpi=400)
 
@@ -223,7 +241,10 @@ if __name__ == '__main__':
         som = SelfOrganizingMap(topo)
 
         som.plot_nodes(filename = f"imgs/nodes_{d}_random", title=None)
+        som.plot_differences_map(filename = f"imgs/differences_{d}_random", title=None)
         som.plot_map(filename = f"imgs/map_{d}_random", title=None)
+
         som.fit(X)
         som.plot_nodes(filename = f"imgs/nodes_{d}_trained", title=None)
+        som.plot_differences_map(filename = f"imgs/differences_{d}_trained", title=None)
         som.plot_map(filename = f"imgs/map_{d}_trained", title=None)
