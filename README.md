@@ -1,6 +1,6 @@
 # py-self-organizing-maps
 
-<img src="imgs/map_2_random.png" width=250><img src="imgs/map_2_inter.png" width=250><img src="imgs/map_2_trained.png" width=250>
+<img src="imgs/map_2_random.png" width=250 title="Random Map"><img src="imgs/map_2_inter.png" width=250 title="Map after 1000 iterations"><img src="imgs/map_2_trained.png" width=250 title="Map after 10000 iterations">
 
 
 ### Simple implementation of self-organizing maps (SOMs)
@@ -10,7 +10,7 @@ vector corresponding to a vector/position in the data space. Over the course of 
 distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
 
 
-<img src="imgs/nodes_2_random.gif" width=250><img src="imgs/nodes_2_inter.gif" width=250><img src="imgs/nodes_2_trained.gif" width=250>
+<img src="imgs/nodes_2_random.gif" width=250 title="Random Nodes"><img src="imgs/nodes_2_inter.gif" width=250 title="Nodes after 1000 iterations"><img src="imgs/nodes_2_trained.gif" width=250 title="Nodes after 10000 iterations">
 
 ### The code
 
@@ -45,11 +45,13 @@ som.plot_nodes()
 som.plot_differences_map()
 
 ```
-<img src="imgs/map_1_random.png" width=160><img src="imgs/nodes_1_random.gif" width=160><img src="imgs/map_1_trained.png" width=160><img src="imgs/nodes_1_trained.gif" width=160><img src="imgs/differences_1_trained.png" width=160>
+### Examples
 
-<img src="imgs/map_2_random.png" width=160><img src="imgs/nodes_2_random.gif" width=160><img src="imgs/map_2_trained.png" width=160><img src="imgs/nodes_2_trained.gif" width=160><img src="imgs/differences_2_trained.png" width=160>
+<img src="imgs/map_1_random.png" width=160 title="Random Map"><img src="imgs/nodes_1_random.gif" width=160 title="Random Nodes"><img src="imgs/map_1_trained.png" width=160 title="Map after 10000 iterations"><img src="imgs/nodes_1_trained.gif" width=160 title="Nodes after 10000 iterations"><img src="imgs/differences_1_trained.png" width=160 title="Node Differences after 10000 iterations">
 
-<img src="imgs/map_3_random.gif" width=160><img src="imgs/nodes_3_random.gif" width=160><img src="imgs/map_3_trained.gif" width=160><img src="imgs/nodes_3_trained.gif" width=160><img src="imgs/differences_3_trained.gif" width=160>
+<img src="imgs/map_2_random.png" width=160 title="Random Map"><img src="imgs/nodes_2_random.gif" width=160 title="Random Nodes"><img src="imgs/map_2_trained.png" width=160 title="Map after 10000 iterations"><img src="imgs/nodes_2_trained.gif" width=160 title="Nodes after 10000 iterations"><img src="imgs/differences_2_trained.png" width=160 title="Node Differences after 10000 iterations">
+
+<img src="imgs/map_3_random.gif" width=160 title="Random Map"><img src="imgs/nodes_3_random.gif" width=160 title="Random Nodes"><img src="imgs/map_3_trained.gif" width=160 title="Map after 10000 iterations"><img src="imgs/nodes_3_trained.gif" width=160 title="Nodes after 10000 iterations"><img src="imgs/differences_3_trained.gif" width=160 title="Node Differences after 10000 iterations">
 
 ### TODOS
 - [x] Initial commit
