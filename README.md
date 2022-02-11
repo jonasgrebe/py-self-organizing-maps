@@ -4,10 +4,10 @@
 
 
 ### Simple implementation of self-organizing maps (SOMs)
-A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from the source space (dataset) to a discrete
-neighborhood-based topology. This topology is implicitly given as a neighborhood graph. The SOM method assigns to each node of this graph a feature weight
-vector corresponding to a vector/position in the source space. Over the course of iterations, the node weights of this topology are learned to cover the
-distribution of samples in the dataset, providing a discrete map over the manifold of the data.
+A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete
+neighborhood-based topology to a data space. This topology is implicitly given as a neighborhood graph. The SOM method assigns to each node of this graph a feature weight
+vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the
+distribution of samples in the dataset, providing a discrete map over the manifold of the data. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
 
 
 <img src="imgs/nodes_2_random.gif" width=250><img src="imgs/nodes_2_inter.gif" width=250><img src="imgs/nodes_2_trained.gif" width=250>
@@ -39,7 +39,7 @@ topo = GridTopology(height=8, width=8, depth=8, d=2) # d is either 1 or 2 or 3
 som = SelfOrganizingMap(topology=topo)
 s.fit(X)
 
-# plot the learned map, the nodes in the source space and the node differences
+# plot the learned map, the nodes in the data space and the node differences
 som.plot_map()
 som.plot_nodes()
 som.plot_differences_map()
