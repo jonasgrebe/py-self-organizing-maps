@@ -53,6 +53,7 @@ som.plot_differences_map()
 
 ### TODOS
 - [x] Initial commit
+- [ ] Add comments and documentation
 - [ ] Add hexagonal topology
 - [ ] Add other dataset examples (e.g. MNIST, face dataset, ...)
 - [ ] Use PyTorch for GPU
