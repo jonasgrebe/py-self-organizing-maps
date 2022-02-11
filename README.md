@@ -40,9 +40,9 @@ som = SelfOrganizingMap(topology=topo)
 s.fit(X)
 
 # plot the learned map, the nodes in the source space and the node differences
-som.plot_map(filename = f"map")
-som.plot_nodes(filename = f"nodes")
-som.plot_differences_map(filename = f"differences")
+som.plot_map()
+som.plot_nodes()
+som.plot_differences_map()
 
 ```
 <img src="imgs/map_1_random.png" width=180><img src="imgs/nodes_1_random.gif" width=180><img src="imgs/map_1_trained.png" width=180><img src="imgs/nodes_1_trained.gif" width=180><img src="imgs/differences_1_trained.png" width=180>
