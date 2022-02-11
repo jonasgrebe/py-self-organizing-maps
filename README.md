@@ -1,16 +1,18 @@
 # py-self-organizing-maps
 
-<img src="imgs/map_2_random.png" width=300><img src="imgs/map_2_inter.png" width=300><img src="imgs/map_2_trained.png" width=300>
+<img src="imgs/map_2_random.png" width=250><img src="imgs/map_2_inter.png" width=250><img src="imgs/map_2_trained.png" width=250>
 
 
-**Simple implementation of self-organizing maps (SOMs)** - A SOM is an unsupervised method for learning a mapping from the source space (dataset) to a discrete
+### Simple implementation of self-organizing maps (SOMs)
+A SOM is an unsupervised method for learning a mapping from the source space (dataset) to a discrete
 neighborhood-based topology. This topology is implicitly given as a neighborhood graph. The SOM method assigns to each node of this graph a feature weight
 vector corresponding to a vector/position in the source space. Over the course of iterations, the node weights of this topology are learned to cover the
 distribution of samples in the dataset, providing a discrete map over the manifold of the data.
 
 
+<img src="imgs/nodes_2_random.gif" width=250><img src="imgs/nodes_2_inter.gif" width=250><img src="imgs/nodes_2_trained.gif" width=250>
 
-<img src="imgs/nodes_2_random.gif" width=300><img src="imgs/nodes_2_inter.gif" width=300><img src="imgs/nodes_2_trained.gif" width=300>
+### The code
 
 This implementation is split into two major parts: An abstract ```Topology``` class and the ```SelfOrganizingMap``` class. The first one is basically an interface to define
 a neighborhood-based topology, hence it holds methods such as ```get_neighbors_of_node(...)``` or ```metric(...)``` or even abstract plotting methods such as ```plot_map(...)```.
@@ -22,7 +24,7 @@ and wrapper methods for plotting.
 The plotting methods are currently somewhat specialised to the color space example scenario. Feel free to play around with other topologies and other visualisations.
 
 
-
+### How to use
 
 ```python
 from som import SelfOrganizingMap
