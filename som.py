@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from abc import ABC as Abstract
 from abc import abstractmethod
 
-from animate import rotanimate
-
 class Topology(Abstract):
 
     @abstractmethod
@@ -191,9 +189,9 @@ class SelfOrganizingMap:
         axis = self.topology.plot_map(self.node_weights, axis, title)
         plt.tight_layout()
 
-        if self.topology.d == 3:
-            angles = np.linspace(0, 360, 21)[:-1]
-            rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
+        #if self.topology.d == 3:
+            #angles = np.linspace(0, 360, 21)[:-1]
+            #rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
 
         plt.savefig(filename + ".png", dpi=400)
 
@@ -209,9 +207,9 @@ class SelfOrganizingMap:
         axis = self.topology.plot_map(diffs, axis, title)
         plt.tight_layout()
 
-        if self.topology.d == 3:
-            angles = np.linspace(0, 360, 21)[:-1]
-            rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
+        #if self.topology.d == 3:
+            #angles = np.linspace(0, 360, 21)[:-1]
+            #rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
 
         plt.savefig(filename + ".png", dpi=400)
 
@@ -219,8 +217,8 @@ class SelfOrganizingMap:
         axis = self.topology.plot_nodes(self.node_weights, axis, title)
         plt.tight_layout()
 
-        angles = np.linspace(0, 360, 21)[:-1]
-        rotanimate(axis, angles, filename + ".gif", delay=0.5, width=5, height=5)
+        #angles = np.linspace(0, 360, 21)[:-1]
+        #rotanimate(axis, angles, filename + ".gif", delay=0.5, width=5, height=5)
         plt.savefig(filename + ".png", dpi=400)
 
 
