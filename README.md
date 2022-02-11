@@ -52,6 +52,8 @@ som.plot_differences_map()
 <img src="imgs/map_3_random.gif" width=160><img src="imgs/nodes_3_random.gif" width=160><img src="imgs/map_3_trained.gif" width=160><img src="imgs/nodes_3_trained.gif" width=160><img src="imgs/differences_3_trained.gif" width=160>
 
 ### TODOS
-- [x] Initial Commit
-- [ ] Add Hexagonal Topology
+- [x] Initial commit
+- [ ] Add hexagonal topology
+- [ ] Add other dataset examples (e.g. MNIST, face dataset, ...)
+- [ ] Use PyTorch for GPU
 
