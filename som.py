@@ -43,9 +43,10 @@ class Topology(Abstract):
 
 class GridTopology(Topology):
 
-    def __init__(self, height: int = 0, width: int = 0, depth: int = 0, d: int = 2):
+    def __init__(self, height: int = 0, width: int = 0, depth: int = 0, d: int = 2, periodic=False):
         assert d in [1, 2, 3], "Only 1D, 2D and 3D grid topologies are supported!"
         self.d = d
+        self.periodic = periodic
 
         if d == 1:
             self.grid_shape = (height, 1)
@@ -61,11 +62,21 @@ class GridTopology(Topology):
         all_nodes = np.array([self.get_node(i) for i in range(len(self))])
         node = all_nodes[node_idx]
         distances = self.metric(all_nodes, node)
+        #print(node, list(zip(all_nodes, distances)))
         neighbor_idxs = np.where(distances <= radius)
         return neighbor_idxs, distances[neighbor_idxs]
 
     def metric(self, x, y):
-        return METRICS['l1'](x, y)
+        if not self.periodic:
+            return METRICS['l1'](x, y)
+        else:
+            s = np.zeros_like(x-y)
+            for i in range(self.d):
+                L = self.grid_shape[i]
+                d = np.abs((x-y)[:,i])
+                d[d > L / 2] = L - d[d > L / 2]
+                s[:,i] += d
+            return s.sum(axis=-1)
 
     def get_number_of_nodes(self):
         return np.prod(self.grid_shape)
@@ -211,7 +222,7 @@ class SelfOrganizingMap:
 
         if savefig:
             #angles = np.linspace(0, 360, 21)[:-1]
-            #rotanimate(axis, angles, filename + ".gif", delay=0.5, width=5, height=5)
+            #rotanimate(axis, angles, filename + ".gif", delay=0.5, width=10, height=10)
             axis.figure.figure.savefig(filename + ".png", dpi=400)
 
 
@@ -223,12 +234,14 @@ if __name__ == '__main__':
     N = 1000
     X = np.random.rand(N, 3)
 
-    height = 8
+    # TODO: Test it on two blobs of colors in the color space -> not uniform distribution
+
+    height = 100
     width = 8
     depth = 8
 
     d = 1
-    topo = GridTopology(height, width, depth, d=d)
+    topo = GridTopology(height, width, depth, d=d, periodic=True)
     som = SelfOrganizingMap(topo, metric='l1')
 
     f = plt.figure()
