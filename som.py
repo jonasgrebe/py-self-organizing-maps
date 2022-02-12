@@ -3,6 +3,13 @@ import matplotlib.pyplot as plt
 from abc import ABC as Abstract
 from abc import abstractmethod
 
+<<<<<<< Updated upstream
+=======
+from animate import rotanimate
+
+
+
+>>>>>>> Stashed changes
 class Topology(Abstract):
 
     @abstractmethod
