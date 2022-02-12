@@ -11,7 +11,6 @@ METRICS = {
 }
 
 
-
 class Topology(Abstract):
 
     @abstractmethod
@@ -118,10 +117,9 @@ class SelfOrganizingMap:
 
     def __init__(self, topology, metric='l2', initialization='random_uniform'):
         self.topology = topology
-        self.metric = metric.lower()
         self.initialization = initialization.lower()
 
-        self.metric = METRICS[metric]
+        self.metric = METRICS[metric.lower()]
         self.node_weights = self.get_initial_node_weights(X)
 
 
