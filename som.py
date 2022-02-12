@@ -3,13 +3,15 @@ import matplotlib.pyplot as plt
 from abc import ABC as Abstract
 from abc import abstractmethod
 
-<<<<<<< Updated upstream
-=======
-from animate import rotanimate
+# from animate import rotanimate
+
+METRICS = {
+    'l1': lambda x, y: np.abs(x - y).sum(axis=-1),
+    'l2': lambda x, y: np.sqrt(np.square(x - y).sum(axis=-1)),
+}
 
 
 
->>>>>>> Stashed changes
 class Topology(Abstract):
 
     @abstractmethod
@@ -21,7 +23,7 @@ class Topology(Abstract):
         pass
 
     @abstractmethod
-    def metric(self, x):
+    def metric(self, x, y):
         pass
 
     @abstractmethod
@@ -43,7 +45,6 @@ class Topology(Abstract):
 class GridTopology(Topology):
 
     def __init__(self, height: int = 0, width: int = 0, depth: int = 0, d: int = 2):
-
         assert d in [1, 2, 3], "Only 1D, 2D and 3D grid topologies are supported!"
         self.d = d
 
@@ -60,12 +61,12 @@ class GridTopology(Topology):
     def get_neighbors_of_node(self, node_idx, radius):
         all_nodes = np.array([self.get_node(i) for i in range(len(self))])
         node = all_nodes[node_idx]
-        distances = self.metric(all_nodes - node).sum(axis=-1)
+        distances = self.metric(all_nodes, node)
         neighbor_idxs = np.where(distances <= radius)
         return neighbor_idxs, distances[neighbor_idxs]
 
-    def metric(self, x):
-        return np.abs(x)
+    def metric(self, x, y):
+        return METRICS['l1'](x, y)
 
     def get_number_of_nodes(self):
         return np.prod(self.grid_shape)
@@ -76,18 +77,15 @@ class GridTopology(Topology):
         if axis is None:
             axis = plt.figure().add_subplot(projection='3d') if self.d == 3 else plt.figure().add_subplot()
 
-        if self.d == 1:
-            weights = weights.reshape(*self.grid_shape, weights.shape[-1])
-            axis.imshow(weights)
-        elif self.d == 2:
-            weights = weights.reshape(*self.grid_shape, weights.shape[-1])
+        weights = weights.reshape(*self.grid_shape, weights.shape[-1])
+
+        if self.d in [1, 2]:
             axis.imshow(weights)
         else:
             voxels = np.ones(self.grid_shape, dtype=bool)
-            colors = weights.reshape(*self.grid_shape, weights.shape[-1])
-            if colors.shape[-1] == 1:
-                colors = np.concatenate([colors]*3, axis=-1)
-            axis.voxels(voxels, facecolors=colors, edgecolor='k', alpha=0.8)
+            if weights.shape[-1] == 1:
+                weights = np.concatenate([weights]*3, axis=-1)
+            axis.voxels(voxels, facecolors=weights, edgecolor='k', alpha=0.8)
         axis.set_title(title)
         axis.axis('off')
 
@@ -123,7 +121,7 @@ class SelfOrganizingMap:
         self.metric = metric.lower()
         self.initialization = initialization.lower()
 
-        self.metric_fct = self.get_metric_function(metric)
+        self.metric = METRICS[metric]
         self.node_weights = self.get_initial_node_weights(X)
 
 
@@ -146,21 +144,9 @@ class SelfOrganizingMap:
             return min + np.random.rand(*target_shape) * (max - min)
 
 
-    def get_metric_function(self, metric):
-        # Euclidian Distance
-        if metric in ['l2', 'euclidian']:
-            metric_fct = lambda W, x: np.sqrt(np.sum(np.square(W - x), axis=-1))
-
-        # Manhattan Distance
-        elif metric in ['l1', 'manhattan']:
-            metric_fct = lambda W, x: np.abs(np.sum(W - x, axis=-1))
-
-        return metric_fct
-
-
     def get_best_matching_node_idx(self, x):
         # Find the minimal distance node
-        d = self.metric_fct(self.node_weights, x)
+        d = self.metric(self.node_weights, x)
         min_idx = np.argmin(d)
         return min_idx
 
@@ -192,41 +178,43 @@ class SelfOrganizingMap:
             self.update_node_weights(neighbor_node_idxs, learning_rate, distance_factors, x)
 
 
-    def plot_map(self, axis=None, title="Learned Map", filename="map"):
+    def plot_map(self, axis=None, title="Learned Map", savefig=False, filename="map"):
         axis = self.topology.plot_map(self.node_weights, axis, title)
         plt.tight_layout()
 
-        #if self.topology.d == 3:
-            #angles = np.linspace(0, 360, 21)[:-1]
-            #rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
+        if savefig:
+            #if self.topology.d == 3:
+                #angles = np.linspace(0, 360, 21)[:-1]
+                #rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
+            axis.figure.figure.savefig(filename + ".png", dpi=400)
 
-        plt.savefig(filename + ".png", dpi=400)
-
-    def plot_differences_map(self, axis=None, title="Differences Map", filename="map"):
+    def plot_differences_map(self, axis=None, title="Differences Map", savefig=False, filename="map"):
         diffs = np.zeros_like(self.node_weights)
 
         for node_idx in range(len(self.topology)):
-            neighbor_idxs, _ = self.topology.get_neighbors_of_node(node_idx, radius=2)
+            neighbor_idxs, _ = self.topology.get_neighbors_of_node(node_idx, radius=1)
             diffs[node_idx] = np.abs(self.node_weights[neighbor_idxs] - self.node_weights[node_idx]).mean()
 
         diffs /= diffs.max()
 
         axis = self.topology.plot_map(diffs, axis, title)
-        plt.tight_layout()
+        axis.figure.tight_layout()
 
-        #if self.topology.d == 3:
-            #angles = np.linspace(0, 360, 21)[:-1]
-            #rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
+        if savefig:
+            #if self.topology.d == 3:
+                #angles = np.linspace(0, 360, 21)[:-1]
+                #rotanimate(axis, angles, filename + ".gif",delay=0.5, width=10, height=10)
 
-        plt.savefig(filename + ".png", dpi=400)
+            axis.figure.savefig(filename + ".png", dpi=400)
 
-    def plot_nodes(self, axis=None, title="Learned Manifold", filename="nodes"):
+    def plot_nodes(self, axis=None, title="Learned Manifold", savefig=False, filename="nodes"):
         axis = self.topology.plot_nodes(self.node_weights, axis, title)
         plt.tight_layout()
 
-        #angles = np.linspace(0, 360, 21)[:-1]
-        #rotanimate(axis, angles, filename + ".gif", delay=0.5, width=5, height=5)
-        plt.savefig(filename + ".png", dpi=400)
+        if savefig:
+            #angles = np.linspace(0, 360, 21)[:-1]
+            #rotanimate(axis, angles, filename + ".gif", delay=0.5, width=5, height=5)
+            axis.figure.figure.savefig(filename + ".png", dpi=400)
 
 
 
@@ -241,15 +229,27 @@ if __name__ == '__main__':
     width = 8
     depth = 8
 
-    for d in [1, 2, 3]:
-        topo = GridTopology(height, width, depth, d=d)
-        som = SelfOrganizingMap(topo)
+    d = 1
+    topo = GridTopology(height, width, depth, d=d)
+    som = SelfOrganizingMap(topo, metric='l1')
 
-        som.plot_nodes(filename = f"imgs/nodes_{d}_random", title=None)
-        som.plot_differences_map(filename = f"imgs/differences_{d}_random", title=None)
-        som.plot_map(filename = f"imgs/map_{d}_random", title=None)
+    f = plt.figure()
+    ax1 = f.add_subplot(131, projection="3d")
+    ax2 = f.add_subplot(132) if d < 3 else f.add_subplot(132, projection="3d")
+    ax3 = f.add_subplot(133) if d < 3 else f.add_subplot(133, projection="3d")
 
-        som.fit(X)
-        som.plot_nodes(filename = f"imgs/nodes_{d}_trained", title=None)
-        som.plot_differences_map(filename = f"imgs/differences_{d}_trained", title=None)
-        som.plot_map(filename = f"imgs/map_{d}_trained", title=None)
+    som.plot_nodes(axis=ax1, filename = f"imgs/nodes_{d}_random")
+    som.plot_map(axis=ax2, filename = f"imgs/map_{d}_random")
+    som.plot_differences_map(axis=ax3, filename = f"imgs/differences_{d}_random")
+    plt.show()
+
+    f = plt.figure()
+    ax1 = f.add_subplot(131, projection="3d")
+    ax2 = f.add_subplot(132) if d < 3 else f.add_subplot(132, projection="3d")
+    ax3 = f.add_subplot(133) if d < 3 else f.add_subplot(133, projection="3d")
+    som.fit(X)
+
+    som.plot_nodes(axis=ax1, filename = f"imgs/nodes_{d}_trained")
+    som.plot_map(axis=ax2, filename = f"imgs/map_{d}_trained")
+    som.plot_differences_map(axis=ax3, filename = f"imgs/differences_{d}_trained")
+    plt.show()
