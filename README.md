@@ -59,7 +59,7 @@ For demonstration purposes, ```64``` nodes were learned with an 1D-, 2D-, and 3D
 <img src="imgs/uniform/nodes_2_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_2_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
 
 ### Uniform - 3D
-<img src="imgs/uniform/map_3_random.png" width=250 title="Random Map"><img src="imgs/uniform/map_3_normal_trained.png" width=250 title="Learned Map"><img src="imgs/uniform/map_3_periodic_trained.png" width=250 title="Learned Map (Periodic)">
+<img src="imgs/uniform/map_3_random.gif" width=250 title="Random Map"><img src="imgs/uniform/map_3_normal_trained.gif" width=250 title="Learned Map"><img src="imgs/uniform/map_3_periodic_trained.gif" width=250 title="Learned Map (Periodic)">
 
 <img src="imgs/uniform/nodes_3_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_3_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_3_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
 
