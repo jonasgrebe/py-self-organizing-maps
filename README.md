@@ -43,7 +43,7 @@ som.plot_differences_map()
 ```
 ## Examples
 
-For demonstration purposes, ```64``` nodes were learned with an 1D-, 2D-, and 3D- ```GridTopology``` on two different datasets: uniformly sampled RGB color vectors and a set that contains three gaussian blobs of data around the R, G and B color axes. 
+For demonstration purposes, ```64``` nodes were learned with an 1D-, 2D-, and 3D- ```GridTopology``` with once full and once no periodicity each on two different datasets: uniformly sampled RGB color vectors and a set that contains three gaussian blobs of data around the R, G and B color axes. 
 
 ### Uniform - 1D
 
