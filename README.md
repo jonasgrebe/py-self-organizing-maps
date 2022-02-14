@@ -1,11 +1,11 @@
 # py-self-organizing-maps
 
-<img src="imgs/uniform/map_2_random.png" width=200 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=200 title="Learned Map"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=200 title="Learned Manifold">
+<img src="imgs/uniform/map_2_random.png" width=200 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=200 title="Learned Map">
+
+<img src="imgs/uniform/nodes_2_normal_trained.gif" width=300 title="Learned Manifold">
 
 ## Simple implementation of self-organizing maps (SOMs)
 A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete topology to a data space. The SOM method assigns to each node of this graph a feature weight vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
-
-<img src="imgs/nodes_2_random.gif" width=250 title="Random Nodes"><img src="imgs/nodes_2_inter.gif" width=250 title="Nodes after 1000 iterations"><img src="imgs/nodes_2_trained.gif" width=250 title="Nodes after 10000 iterations">
 
 ## The code
 
@@ -42,13 +42,45 @@ som.plot_differences_map()
 ```
 ## Examples
 
-### GridTopology (1D, 2D, and 3D)
+### Uniform Color Space
 
-#### Uniform Color Space
+#### 1D
 
-<img src="imgs/uniform/map_1_random.png" width=300 title="Random Map">
-<img src="imgs/uniform/map_1_normal_trained.png" width=300 title="Learned Map">
-<img src="imgs/uniform/map_1_peridic_trained.png" width=300 title="Learned Map (Periodic)">
+<img src="imgs/uniform/map_1_random.png" width=750 title="Random Map">
+<img src="imgs/uniform/map_1_normal_trained.png" width=750 title="Learned Map">
+<img src="imgs/uniform/map_1_periodic_trained.png" width=750 title="Learned Map (Periodic)">
+
+<img src="imgs/uniform/nodes_1_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_1_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_1_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
+
+#### 2D
+<img src="imgs/uniform/map_2_random.png" width=250 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=250 title="Learned Map"><img src="imgs/uniform/map_2_periodic_trained.png" width=250 title="Learned Map (Periodic)">
+
+<img src="imgs/uniform/nodes_2_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_2_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
+
+#### 3D
+<img src="imgs/uniform/map_3_random.png" width=250 title="Random Map"><img src="imgs/uniform/map_3_normal_trained.png" width=250 title="Learned Map"><img src="imgs/uniform/map_3_periodic_trained.png" width=250 title="Learned Map (Periodic)">
+
+<img src="imgs/uniform/nodes_3_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_3_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_3_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
+
+### Blobs in Color Space
+
+#### 1D
+
+<img src="imgs/blobs/map_1_random.png" width=750 title="Random Map">
+<img src="imgs/blobs/map_1_normal_trained.png" width=750 title="Learned Map">
+<img src="imgs/blobs/map_1_periodic_trained.png" width=750 title="Learned Map (Periodic)">
+
+<img src="imgs/blobs/nodes_1_random.gif" width=250 title="Random Manifold"><img src="imgs/blobs/nodes_1_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/blobs/nodes_1_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
+
+#### 2D
+<img src="imgs/blobs/map_2_random.png" width=250 title="Random Map"><img src="imgs/blobs/map_2_normal_trained.png" width=250 title="Learned Map"><img src="imgs/blobs/map_2_periodic_trained.png" width=250 title="Learned Map (Periodic)">
+
+<img src="imgs/blobs/nodes_2_random.gif" width=250 title="Random Manifold"><img src="imgs/blobs/nodes_2_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/blobs/nodes_2_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
+
+#### 3D
+<img src="imgs/blobs/map_3_random.png" width=250 title="Random Map"><img src="imgs/blobs/map_3_normal_trained.png" width=250 title="Learned Map"><img src="imgs/blobs/map_3_periodic_trained.png" width=250 title="Learned Map (Periodic)">
+
+<img src="imgs/blobs/nodes_3_random.gif" width=250 title="Random Manifold"><img src="imgs/blobs/nodes_3_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/blobs/nodes_3_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
 
 
 ### TODOS
