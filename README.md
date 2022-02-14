@@ -1,12 +1,12 @@
 # py-self-organizing-maps
 
-<img src="imgs/uniform/map_2_random.png" width=300 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=300 title="Learned Map"><img src="imgs/uniform/map_2_periodic_trained.png" width=300 title="Learned Map (Periodic)">
+<img src="imgs/uniform/map_2_random.png" width=250 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=250 title="Learned Map"><img src="imgs/uniform/map_2_periodic_trained.png" width=302500 title="Learned Map (Periodic)">
 
 ## Simple implementation of self-organizing maps (SOMs)
 A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete topology to a data space. The SOM method assigns to each node of this graph a feature weight vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
 
 
-<img src="imgs/uniform/nodes_1_normal_trained.gif" width=300 title="Learned Manifold (1D)"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=300 title="Learned Manifold (2D)"><img src="imgs/uniform/nodes_3_normal_trained.gif" width=300 title="Learned Manifold (3D)">
+<img src="imgs/uniform/nodes_1_normal_trained.gif" width=250 title="Learned Manifold (1D)"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=250 title="Learned Manifold (2D)"><img src="imgs/uniform/nodes_3_normal_trained.gif" width=250 title="Learned Manifold (3D)">
 
 ## The code
 
