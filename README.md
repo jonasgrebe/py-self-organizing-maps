@@ -1,41 +1,36 @@
 # py-self-organizing-maps
 
-<img src="imgs/map_2_random.png" width=250 title="Random Map"><img src="imgs/map_2_inter.png" width=250 title="Map after 1000 iterations"><img src="imgs/map_2_trained.png" width=250 title="Map after 10000 iterations">
+<img src="imgs/uniform/map_2_random.png" width=200 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=200 title="Learned Map"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=200 title="Learned Manifold">
 
-
-### Simple implementation of self-organizing maps (SOMs)
-A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete
-neighborhood-based topology to a data space. This topology is implicitly given as a neighborhood graph. The SOM method assigns to each node of this graph a feature weight
-vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the
-distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
-
+## Simple implementation of self-organizing maps (SOMs)
+A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete topology to a data space. The SOM method assigns to each node of this graph a feature weight vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor node weights to a given data sample, the learned mapping is approximately invertible by basically performing quantization.
 
 <img src="imgs/nodes_2_random.gif" width=250 title="Random Nodes"><img src="imgs/nodes_2_inter.gif" width=250 title="Nodes after 1000 iterations"><img src="imgs/nodes_2_trained.gif" width=250 title="Nodes after 10000 iterations">
 
-### The code
+## The code
 
-This implementation is split into two major parts: An abstract ```Topology``` class and the ```SelfOrganizingMap``` class. The first one is basically an interface to define
-a neighborhood-based topology, hence it holds methods such as ```get_neighbors_of_node(...)``` or ```metric(...)``` or even abstract plotting methods such as ```plot_map(...)```.
+This implementation is split into two major parts: An abstract ```Topology``` class and the ```SelfOrganizingMap``` class. The first one is basically an interface to define a topology. Currently, topologies are defined via the abstract ```metric(...)``` and ```get_neighbors_of_node(...)``` methods. In addition to that, one can instantiate the abstract plotting methods ```plot_map(...)```, ```plot_nodes(...)```, or ```plot_node_difference_map(...)``` to define how the topology can be plotted via matplotlib.
+
 There is already one, arguably the simplest form of topology, implemented, namely regular one-, two- or three-dimensional grid structures as a ```GridTopology``` subclass.
 
-The second class handles everything related to the iterative learning process and has an ```self.topology``` attribute which is an instance of the other class. It provides a simple ```fit()``` method for training
-and wrapper methods for plotting.
+The second class handles everything related to the iterative learning process and has an ```self.topology``` attribute which is an instance of the other class. It provides a simple ```fit()``` method for training and wrapper methods for plotting.
 
 The plotting methods are currently somewhat specialised to the color space example scenario. Feel free to play around with other topologies and other visualisations.
 
 
-### How to use
+## How to use
 
 ```python
+from som.topologies import GridTopology
 from som import SelfOrganizingMap
-from som import GridTopology
+import numpy as np
 
 # create a random set of RGB color vectors
 N = 1000
 X = np.random.randint(0, 255, (N, 3)) # shape = (number_of_samples, feature_dim)
 
 # create the SOM and fit it to the color vectors
-topo = GridTopology(height=8, width=8, depth=8, d=2) # d is either 1 or 2 or 3
+topo = GridTopology(height=8, width=8, depth=8, d=2, periodic=False) # d is either 1 or 2 or 3
 som = SelfOrganizingMap(topology=topo)
 som.fit(X)
 
@@ -45,18 +40,21 @@ som.plot_nodes()
 som.plot_differences_map()
 
 ```
-### Examples
+## Examples
 
-<img src="imgs/map_1_random.png" width=160 title="Random Map"><img src="imgs/nodes_1_random.gif" width=160 title="Random Nodes"><img src="imgs/map_1_trained.png" width=160 title="Map after 10000 iterations"><img src="imgs/nodes_1_trained.gif" width=160 title="Nodes after 10000 iterations"><img src="imgs/differences_1_trained.png" width=160 title="Node Differences after 10000 iterations">
+### GridTopology (1D, 2D, and 3D)
 
-<img src="imgs/map_2_random.png" width=160 title="Random Map"><img src="imgs/nodes_2_random.gif" width=160 title="Random Nodes"><img src="imgs/map_2_trained.png" width=160 title="Map after 10000 iterations"><img src="imgs/nodes_2_trained.gif" width=160 title="Nodes after 10000 iterations"><img src="imgs/differences_2_trained.png" width=160 title="Node Differences after 10000 iterations">
+#### Uniform Color Space
 
-<img src="imgs/map_3_random.gif" width=160 title="Random Map"><img src="imgs/nodes_3_random.gif" width=160 title="Random Nodes"><img src="imgs/map_3_trained.gif" width=160 title="Map after 10000 iterations"><img src="imgs/nodes_3_trained.gif" width=160 title="Nodes after 10000 iterations"><img src="imgs/differences_3_trained.gif" width=160 title="Node Differences after 10000 iterations">
+<img src="imgs/uniform/map_1_random.png" width=300 title="Random Map">
+<img src="imgs/uniform/map_1_normal_trained.png" width=300 title="Learned Map">
+<img src="imgs/uniform/map_1_peridic_trained.png" width=300 title="Learned Map (Periodic)">
+
 
 ### TODOS
 - [x] Initial commit
 - [ ] Add comments and documentation
+- [ ] Add alternative (image) plotting methods
 - [ ] Add hexagonal topology
 - [ ] Add other dataset examples (e.g. MNIST, face dataset, ...)
 - [ ] Use PyTorch for GPU
-
