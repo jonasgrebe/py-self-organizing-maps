@@ -1,5 +1,5 @@
 # py-self-organizing-maps
-<img src="imgs/fit_animation_2.gif" height=255 title="Learned Map"><img src="imgs/fit_animation_3.gif" height=255 title="Learned Map">
+<img src="imgs/fit_animation_2.gif" height=250 width=500 title="Learned Map"><img src="imgs/fit_animation_3.gif" height=250 width=500 title="Learned Map">
 
 ## Simple implementation of self-organizing maps (SOMs)
 A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete topology to a data space. The SOM method assigns to each node of this graph a feature weight vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor nodes to a given data sample in the data space, the learned mapping is approximately invertible.
