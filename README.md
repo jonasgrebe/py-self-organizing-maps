@@ -1,21 +1,28 @@
 # py-self-organizing-maps
-<img src="imgs/fit_animation_2.gif" width=400 title="Learned Map"><img src="imgs/fit_animation_3.gif" width=400 title="Learned Map">
+<img src="imgs/uniform_colors_2d_8x8_p0x0_fit_animation.gif" width=400 title="2D colors example"><img src="imgs/digits_2d_8x8_p0x0/map.png" width=200 title="2D digits example"><img src="imgs/digits_2d_8x8_p0x0/crm.png" width=200 title="2D digits example">
 
 ## Simple implementation of self-organizing maps (SOMs)
 A [SOM](https://en.wikipedia.org/wiki/Self-organizing_map) is an unsupervised method for learning a mapping from a discrete topology to a data space. The SOM method assigns to each node of this graph a feature weight vector corresponding to a vector/position in the data space. Over the course of iterations, the node weights of this topology are learned to cover the distribution of samples in the dataset, providing a discrete map over the manifold of the data while encouraging local continuity through the topology. Through determining nearest neighbor nodes to a given data sample in the data space, the learned mapping is approximately invertible.
 
-
-<img src="imgs/uniform/nodes_1_normal_trained.gif" width=250 title="Learned Manifold (1D)"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=250 title="Learned Manifold (2D)"><img src="imgs/uniform/nodes_3_normal_trained.gif" width=250 title="Learned Manifold (3D)">
+<img src="imgs/uniform_colors_1d_64_p1/nodes.gif" width=250 title=""><img src="imgs/uniform_colors_2d_8x8_p0x0/nodes.gif" width=250 title=""><img src="imgs/uniform_colors_2d_8x8_p1x0/nodes.gif" width=250 title="">
 
 ## The code
 
-This implementation is split into two major parts: An abstract ```Topology``` class and the ```SelfOrganizingMap``` class. The first one is basically an interface to define a topology. Currently, topologies are defined via the abstract ```metric(...)``` and ```get_neighbors_of_node(...)``` methods. In addition to that, one can instantiate the abstract plotting methods ```plot_map(...)```, ```plot_nodes(...)```, or ```plot_node_difference_map(...)``` to define how the topology can be plotted via matplotlib.
+This implementation is split into two major parts: An abstract ```Topology``` class and the ```SelfOrganizingMap``` class. The first one is basically an interface to define a topology. Currently, topologies are defined via the abstract ```metric(...)``` and ```get_neighbors_of_node(...)``` methods. In addition to that, one can instantiate the abstract plotting methods ```plot_map(...)``` and ```plot_nodes(...)``` to define how the topology can be plotted via matplotlib.
 
 There is already one, arguably the simplest form of topology, implemented, namely regular one-, two- or three-dimensional grid structures as a ```GridTopology``` subclass.
 
 The second class handles everything related to the iterative learning process and has an ```self.topology``` attribute which is an instance of the other class. It provides a simple ```fit()``` method for training and wrapper methods for plotting.
 
-The plotting methods are currently somewhat specialised to the color space example scenario. Feel free to play around with other topologies and other visualisations.
+**Topologies**: ```GridTopology```
+
+**Metrics**: ```euclidian```, ```manhattan```, ```infinity```
+
+**Neighborhood Functions**: ```gaussian```, ```triangle```, ```step```
+
+**Error Metrics**: ```quantization_error```, ```topological_error```
+
+**Plot Types**: ```map```, ```umap```, ```class_representation_map```, ```nodes``` (only for 3D data currently)
 
 
 ## How to use
@@ -37,54 +44,33 @@ som.fit(X)
 # plot the learned map, the nodes in the data space and the node differences
 som.plot_map()
 som.plot_nodes()
-som.plot_differences_map()
+som.plot_unified_distance_map()
+
+# som.plot_class_representation_map(y, colors) # if labels and associated colors are available
 
 ```
-## Examples
+Please have a look at the ```main.py``` for more code examples with other datasets.
 
-For demonstration purposes, ```64``` nodes were learned with an 1D-, 2D-, and 3D- ```GridTopology``` instances with either full or no periodicity at all on two different datasets: (1) Uniformly sampled RGB color vectors and (2) a set that contains three gaussian blobs of data on the R, G and B color axes. 
+## The Types of Plots
+**First**: The learned node vectors (interpreted as images) on the _topology map_. **Second**: The _class representation map_, that is, the color of the majority class among the data samples that are nearer to the respective node than to any other. The black nodes have not been assigned any nearest-neighbor data points. **Third**: The _unified distance map_, which visualizes the average metric distance value from a node to its direct topology neighbors.
+**Note**: These three plot types are currently available for (almost) any kind of (image) data. In order to plot the learned node weights in the data space, the data space has to have a dimensionality of smaller are equal than 3. So far only 3D _data space plots with nodes_ are supported (**Fourth**). Animation by rotation is available for any 3D plot.
 
-## Uniform
-### 1-Dimensional
-<img src="imgs/uniform/map_1_random.png" width=750 title="Random Map">
-<img src="imgs/uniform/map_1_normal_trained.png" width=750 title="Learned Map">
-<img src="imgs/uniform/map_1_periodic_trained.png" width=750 title="Learned Map (Periodic)">
+<img src="imgs/olivetti_faces_2d_20x20_p0x0/map.png" width=200 title=""><img src="imgs/olivetti_faces_2d_20x20_p0x0/crm.png" width=200 title=""><img src="imgs/olivetti_faces_2d_20x20_p0x0/umap.png" width=200 title=""><img src="imgs/uniform_colors_2d_8x8_p0x0/nodes.gif" width=200 title="">
 
-<img src="imgs/uniform/nodes_1_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_1_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_1_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
+## Additional Examples
+**First row**: 1D grid topology without and with periodicity along the axis on uniform color sample dataset.
+**Second row**: 2D grid topology without and with periodicity along the first axis on the same dataset.
+**Third row**: 3D grid topology without periodicity and 1D grid topology on three-cluster color dataset.
+**Note**: The 1D grid topology maps were "spiralized" to a 2D grid for better visualization.
 
-### 2-Dimensional
-<img src="imgs/uniform/map_2_random.png" width=250 title="Random Map"><img src="imgs/uniform/map_2_normal_trained.png" width=250 title="Learned Map"><img src="imgs/uniform/map_2_periodic_trained.png" width=250 title="Learned Map (Periodic)">
-
-<img src="imgs/uniform/nodes_2_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_2_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_2_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
-
-### 3-Dimensional
-<img src="imgs/uniform/map_3_random.gif" width=250 title="Random Map"><img src="imgs/uniform/map_3_normal_trained.gif" width=250 title="Learned Map"><img src="imgs/uniform/map_3_periodic_trained.gif" width=250 title="Learned Map (Periodic)">
-
-<img src="imgs/uniform/nodes_3_random.gif" width=250 title="Random Manifold"><img src="imgs/uniform/nodes_3_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/uniform/nodes_3_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
-
-## Blobs
-### 1-Dimensional
-<img src="imgs/uniform/map_1_random.png" width=750 title="Random Map">
-<img src="imgs/blobs/map_1_normal_trained.png" width=750 title="Learned Map">
-<img src="imgs/blobs/map_1_periodic_trained.png" width=750 title="Learned Map (Periodic)">
-
-<img src="imgs/blobs/nodes_1_random.gif" width=250 title="Random Manifold"><img src="imgs/blobs/nodes_1_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/blobs/nodes_1_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
-
-### 2-Dimensional
-<img src="imgs/blobs/map_2_random.png" width=250 title="Random Map"><img src="imgs/blobs/map_2_normal_trained.png" width=250 title="Learned Map"><img src="imgs/blobs/map_2_periodic_trained.png" width=250 title="Learned Map (Periodic)">
-
-<img src="imgs/blobs/nodes_2_random.gif" width=250 title="Random Manifold"><img src="imgs/blobs/nodes_2_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/blobs/nodes_2_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
-
-### 3-Dimensional
-<img src="imgs/blobs/map_3_random.gif" width=250 title="Random Map"><img src="imgs/blobs/map_3_normal_trained.gif" width=250 title="Learned Map"><img src="imgs/blobs/map_3_periodic_trained.gif" width=250 title="Learned Map (Periodic)">
-
-<img src="imgs/blobs/nodes_3_random.gif" width=250 title="Random Manifold"><img src="imgs/blobs/nodes_3_normal_trained.gif" width=250 title="Learned Manifold"><img src="imgs/blobs/nodes_3_periodic_trained.gif" width=250 title="Learned Manifold (Periodic)">
-
+<img src="imgs/uniform_colors_1d_64_p0_fit_animation.gif" width=400 title=""><img src="imgs/uniform_colors_1d_64_p1_fit_animation.gif" width=400 title="">
+<img src="imgs/uniform_colors_2d_8x8_p0x0_fit_animation.gif" width=400 title=""><img src="imgs/uniform_colors_2d_8x8_p1x0_fit_animation.gif" width=400 title="">
+<img src="imgs/uniform_colors_3d_4x4x4_p0x0x0_fit_animation.gif" width=400 title=""><img src="imgs/color_blobs_1d_64_p1_fit_animation.gif" width=400 title="">
 
 ### TODOS
 - [x] Initial commit
 - [ ] Add comments and documentation
-- [ ] Add alternative (image) plotting methods
+- [x] Add alternative (image) plotting methods
 - [ ] Add hexagonal topology
-- [ ] Add other dataset examples (e.g. MNIST, face dataset, ...)
+- [x] Add other dataset examples (e.g. MNIST, face dataset, ...)
 - [ ] Use PyTorch for GPU
