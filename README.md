@@ -14,7 +14,7 @@ There is already one, arguably the simplest form of topology, implemented, namel
 
 The second class handles everything related to the iterative learning process and has an ```self.topology``` attribute which is an instance of the other class. It provides a simple ```fit()``` method for training and wrapper methods for plotting.
 
-**Topologies**: ```GridTopology```
+**Topologies**: ```GridTopology``` (1D, 2D, and 3D with option for periodicities)
 
 **Metrics**: ```euclidian```, ```manhattan```, ```infinity```
 
