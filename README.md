@@ -60,7 +60,7 @@ Please have a look at the ```main.py``` for more code examples with other datase
 ## Additional Examples
 **First row**: 1D grid topology without and with periodicity along the axis on uniform color sample dataset.
 **Second row**: 2D grid topology without and with periodicity along the first axis on the same dataset.
-**Third row**: 3D grid topology without periodicity and 1D grid topology on three-cluster color dataset.
+**Third row**: 3D grid topology without periodicity on the same dataset and 1D grid topology on three-cluster color dataset with periodicity.
 **Note**: The 1D grid topology maps were "spiralized" to a 2D grid for better visualization.
 
 <img src="imgs/uniform_colors_1d_64_p0_fit_animation.gif" width=400 title=""><img src="imgs/uniform_colors_1d_64_p1_fit_animation.gif" width=400 title="">
