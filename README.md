@@ -36,8 +36,8 @@ import numpy as np
 N = 1000
 X = np.random.randint(0, 255, (N, 3)) # shape = (number_of_samples, feature_dim)
 
-# create the SOM and fit it to the color vectors
-topo = GridTopology(height=8, width=8, depth=8, d=3, periodicities=[False, False, False]) # d is either 1 or 2 or 3
+# create the SOM and fit it to the color vectors (d is either 1 or 2 or 3)
+topo = GridTopology(height=4, width=4, depth=4, d=3, periodicities=[False, False, False])
 som = SelfOrganizingMap(topology=topo, metric='euclidian')
 som.fit(X)
 
