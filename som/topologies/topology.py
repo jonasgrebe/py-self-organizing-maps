@@ -9,7 +9,11 @@ class Topology(Abstract):
         pass
 
     @abstractmethod
-    def get_neighbors_of_node(self, node_idx, radius):
+    def get_neighbors_of_node_by_radius(self, node_idx, radius):
+        pass
+
+    @abstractmethod
+    def get_direct_neighbors_of_node(self, node_idx):
         pass
 
     @abstractmethod
@@ -24,7 +28,7 @@ class Topology(Abstract):
         return self.get_number_of_nodes()
 
     @abstractmethod
-    def plot_map(self, weights, axis=None, title=""):
+    def plot_map(self, weights, axis=None, title="", image_shape=None):
         pass
 
     @abstractmethod
