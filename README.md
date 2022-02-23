@@ -37,8 +37,8 @@ N = 1000
 X = np.random.randint(0, 255, (N, 3)) # shape = (number_of_samples, feature_dim)
 
 # create the SOM and fit it to the color vectors
-topo = GridTopology(height=8, width=8, depth=8, d=2, periodic=False) # d is either 1 or 2 or 3
-som = SelfOrganizingMap(topology=topo)
+topo = GridTopology(height=8, width=8, depth=8, d=3, periodicities=[False, False, False]) # d is either 1 or 2 or 3
+som = SelfOrganizingMap(topology=topo, metric='euclidian')
 som.fit(X)
 
 # plot the learned map, the nodes in the data space and the node differences
@@ -53,7 +53,7 @@ Please have a look at the ```main.py``` for more code examples with other datase
 
 ## The Types of Plots
 **First**: The learned node vectors (interpreted as images) on the _topology map_. **Second**: The _class representation map_, that is, the color of the majority class among the data samples that are nearer to the respective node than to any other. The black nodes have not been assigned any nearest-neighbor data points. **Third**: The _unified distance map_, which visualizes the average metric distance value from a node to its direct topology neighbors.
-**Note**: These three plot types are currently available for (almost) any kind of (image) data. In order to plot the learned node weights in the data space, the data space has to have a dimensionality of smaller are equal than 3. So far only 3D _data space plots with nodes_ are supported (**Fourth**). Animation by rotation is available for any 3D plot.
+**Note**: These three plot types are currently available for (almost) any kind of (image) data. In order to plot the learned node weights in the data space, the data space has to have a dimensionality of smaller are equal than 3. So far only 3D _data space plots with nodes_ are supported (**Fourth**). Animation by rotation is available for any 3D plot (just provide the ```animate=True``` argument to one of the plotting methods``` or the ```rotate=True``` argument for the ```fit_animate(...)``` method).
 
 <img src="imgs/olivetti_faces_2d_20x20_p0x0/map.png" width=200 title=""><img src="imgs/olivetti_faces_2d_20x20_p0x0/crm.png" width=200 title=""><img src="imgs/olivetti_faces_2d_20x20_p0x0/umap.png" width=200 title=""><img src="imgs/uniform_colors_2d_8x8_p0x0/nodes.gif" width=200 title="">
 
